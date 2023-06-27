@@ -4,7 +4,6 @@ import Onboard, {
   OnboardAPI,
   WalletState,
 } from '@web3-onboard/core';
-import injectedModule from '@web3-onboard/injected-wallets';
 import walletConnect from '@web3-onboard/walletconnect';
 
 @Injectable({
@@ -43,16 +42,12 @@ export class WalletService {
     onError: () => void,
     isStartupMode: boolean
   ) {
-    const injected = injectedModule();
+    //const injected = injectedModule();
     const bncAssistConfig: InitOptions = {
-      accountCenter: {
-        mobile: { enabled: false },
-        desktop: { enabled: false },
-      },
-      wallets: [injected, walletConnect({})],
+      wallets: [walletConnect()],
       chains: [
         {
-          id: 1,
+          id: '1',
           token: 'ETH',
           label: 'mainnet',
           rpcUrl:
@@ -64,8 +59,6 @@ export class WalletService {
         icon: '',
         description: 'Please select a wallet to connect.',
       },
-      apiKey: '',
-      notify: {},
     };
 
     const _onConnected = () => {
